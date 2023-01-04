@@ -4,12 +4,12 @@ const path = require('path');
 const uuid = require('../helpers/uuid');
 
 // GET request to get new note data
-router.get('../db/db.json', (req, res) => {
-    readFromFile('../db/db.json').then((data) => res.json(JSON.parse(data)));
+router.get('/notes', (req, res) => {
+    fs.readFile('../db/db.json').then((data) => res.json(JSON.parse(data)));
   });
 
   // POST request to add new note
-router.post('../db/db.json', (req, res) => {
+router.post('/notes', (req, res) => {
     const { title, text } = req.body;
     // If all properties are present, save new note and append to json file
     if (title && text) {
@@ -19,7 +19,7 @@ router.post('../db/db.json', (req, res) => {
             noteId: uuid(),
         };
     const textString = JSON.stringify(newNote);
-    readAndAppend(newNote, '../db/db.json');
+    fs.writeFile(newNote, '../db/db.json');
     
     // Write string to json file
     fs.writeFile(`../db/${newNote.title}`, textString, (err) =>
@@ -39,7 +39,7 @@ router.post('../db/db.json', (req, res) => {
   
           // Write updated notes back to the file
           fs.writeFile(
-            '../db/db.json',
+            '/notes',
             JSON.stringify(parsedNotes, null, 4),
             (writeErr) =>
               writeErr
