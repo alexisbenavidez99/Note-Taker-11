@@ -1,5 +1,11 @@
-{
-    "title": "hello",
-    "text": "hello there",
-    "noteId": "dae6"
-}
+[
+    {
+        "title": "Test Title",
+        "text": "Test text"
+    },
+    {
+        "title": "hello",
+        "text": "hello world!!!",
+        "noteId": "9f11"
+    }
+]

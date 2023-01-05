@@ -33,25 +33,7 @@ router.post('/notes', (req, res) => {
     console.log(textString);
     (path.join(__dirname, 'db/db.json'), textString);
 
-    util.writeToFile('db/db.json', newNote);
-
-    // ('notes', textString, (err) => 
-    // err ?
-    // console.error(err) :
-    // console.log(`Review for ${newNote.title} has been written to JSON file`))
     util.readAndAppend(newNote, 'db/db.json');
-
-    // ('db/db.json', 'utf8', (err, data) => {
-    //   if (err) {
-    //     console.error(err);
-    //   } else {
-    //     // Convert string into JSON object
-    //     const parsedNotes = JSON.parse(data);
-
-    //     // Add a new review
-    //     parsedNotes.push(newNote);
-    //   }
-    // });
 
     const response = {
       status: 'success',
