@@ -2,7 +2,7 @@ const router = require('express').Router();
 const fs = require('fs');
 const path = require('path');
 const uuid = require('../helpers/uuid');
-const util = require('util');
+const util = require('../helpers/fsUtils');
 // const readFromFile = util.promisify(fs.readFile);
 // const readAndAppend = util.promisify(fs.writeFile);
 const notes = require('../db/db.json');
@@ -35,9 +35,9 @@ router.post('/notes', (req, res) => {
     };
     const textString = JSON.stringify(newNote);
     console.log(textString);
-    (path.join(__dirname, '../db/db.json'), textString);
+    (path.join(__dirname, 'db/db.json'), textString);
 
-    
+   util.writeToFile('db/db.json', newNote);
 
     // ('notes', textString, (err) => 
     // err ?
@@ -45,22 +45,23 @@ router.post('/notes', (req, res) => {
     // console.log(`Review for ${newNote.title} has been written to JSON file`))
 
     // Obtain existing reviews
-    ('../db/db.json', 'utf8', (err, data) => {
-      if (err) {
-        console.error(err);
-      } else {
-        // Convert string into JSON object
-        const parsedNotes = JSON.parse(data);
+    // ('db/db.json', 'utf8', (err, data) => {
+    //   if (err) {
+    //     console.error(err);
+    //   } else {
+    //     // Convert string into JSON object
+    //     const parsedNotes = JSON.parse(data);
 
-        // Add a new review
-        parsedNotes.push(newNote);
-      }
-    });
+    //     // Add a new review
+    //     parsedNotes.push(newNote);
+    //   }
+    // });
+    util.readAndAppend(newNote, 'db/db.json');
 
-    ('notes', textString, (err) => 
-    err ?
-    console.error(err) :
-    console.log(`Review for ${newNote.title} has been written to JSON file`))
+    // ('notes', textString, (err) => 
+    // err ?
+    // console.error(err) :
+    // console.log(`Review for ${newNote.title} has been written to JSON file`))
 
     const response = {
       status: 'success',
