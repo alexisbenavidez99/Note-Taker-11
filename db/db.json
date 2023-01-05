@@ -1,16 +1,17 @@
 [
     {
-        "title": "Test Title",
-        "text": "Test text"
+        "title": "Take trash out",
+        "text": "Needs to be out by 8 pm",
+        "noteId": "7908"
     },
     {
-        "title": "hello",
-        "text": "hello world!!!",
-        "noteId": "9f11"
+        "title": "Study for exam",
+        "text": "Start studying at 11 am",
+        "noteId": "fb84"
     },
     {
-        "title": "hey",
-        "text": "hey there",
-        "noteId": "aca9"
+        "title": "Make doctors appointment",
+        "text": "Schedule for Thursday",
+        "noteId": "52b9"
     }
 ]
