@@ -5,14 +5,18 @@ const uuid = require('../helpers/uuid');
 const util = require('util');
 const readFromFile = util.promisify(fs.readFile);
 const readAndAppend = util.promisify(fs.writeFile);
+const notes = require('../db/db.json');
 
 // GET request to get new note data
 router.get('/notes', (req, res) => {
-  readFromFile(path.join(__dirname, '../db/db.json')).then((data) => {
+  readFromFile(path.join(__dirname, 'notes')).then((data) => {
     console.log(data);
     res.json(JSON.parse(data))
   });
 });
+// have apiroutes and htmlroutes
+// create route in json file
+
 
 // POST request to add new note
 router.post('/notes', (req, res) => {
@@ -34,7 +38,9 @@ router.post('/notes', (req, res) => {
     console.log(textString);
     readAndAppend(path.join(__dirname, '../db/db.json'), textString);
 
-    fs.writeFile('../db/db.json', textString, (err) => 
+    
+
+    fs.writeFile('notes', textString, (err) => 
     err ?
     console.error(err) :
     console.log(`Review for ${newNote.title} has been written to JSON file`))
@@ -72,6 +78,6 @@ router.post('/notes', (req, res) => {
   } else {
     res.status(500).json('Error in posting review');
   }
-});
+ });
 
 module.exports = router;
