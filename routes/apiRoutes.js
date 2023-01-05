@@ -42,10 +42,10 @@ router.post('/notes', (req, res) => {
 
 // DELETE request to delete notes
 router.delete('/notes/:noteId', (req, res) => {
+  console.log(req.params.noteId);
   let db = JSON.parse(util.readFromFile('db/db.json'))
   let deleteNote = db.filter(item => item.noteId !== req.params.noteId);
   util.writeToFile('db/db.json', JSON.stringify(deleteNote));
   res.json(deleteNote);
 });
-
 module.exports = router;
