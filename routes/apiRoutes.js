@@ -22,7 +22,7 @@ router.post('/notes', (req, res) => {
     const newNote = {
       title,
       text,
-      noteId: uuid(),
+      id: uuid(),
     };
     const textString = JSON.stringify(newNote);
     (path.join(__dirname, 'db/db.json'), textString);
@@ -41,11 +41,13 @@ router.post('/notes', (req, res) => {
  });
 
 // DELETE request to delete notes
-router.delete('/notes/:noteId', (req, res) => {
-  console.log(req.params.noteId);
-  let db = JSON.parse(util.readFromFile('db/db.json'))
-  let deleteNote = db.filter(item => item.noteId !== req.params.noteId);
-  util.writeToFile('db/db.json', JSON.stringify(deleteNote));
-  res.json(deleteNote);
+router.delete('/notes/:id', (req, res) => {
+  console.log(req.params.id);
+  util.readFromFile(path.join(__dirname, '../db/db.json')).then((data) => {
+    let db = JSON.parse(data);
+    let deleteNote = db.filter(item => item.id !== req.params.id);
+    util.writeToFile('db/db.json', JSON.stringify(deleteNote));
+    res.json(deleteNote);
+  });
 });
 module.exports = router;
