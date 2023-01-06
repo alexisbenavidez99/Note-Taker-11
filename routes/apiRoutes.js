@@ -24,8 +24,8 @@ router.post('/notes', (req, res) => {
       text,
       id: uuid(),
     };
-    const textString = JSON.stringify(newNote);
-    (path.join(__dirname, 'db/db.json'), textString);
+    // const textString = JSON.stringify(newNote);
+    // (path.join(__dirname, 'db/db.json'), textString);
 
     util.readAndAppend(newNote, 'db/db.json');
 
@@ -46,8 +46,9 @@ router.delete('/notes/:id', (req, res) => {
   util.readFromFile(path.join(__dirname, '../db/db.json')).then((data) => {
     let db = JSON.parse(data);
     let deleteNote = db.filter(item => item.id !== req.params.id);
-    util.writeToFile('db/db.json', JSON.stringify(deleteNote));
+    util.writeToFile('db/db.json', deleteNote);
     res.json(deleteNote);
   });
 });
+
 module.exports = router;
